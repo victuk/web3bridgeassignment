@@ -116,11 +116,11 @@ export default function Home() {
                 </div>
             </div>
             <div>
-                <div className="flex">
+                <div className="flex p-2 bg-white rounded-md">
 
-                    <button className="bg-white border-none w-full py-4 font-bold" onClick={() => { setTabValue("all") }}>All Activities</button>
-                    <button className="bg-white border-none w-full py-4 font-bold" onClick={() => { setTabValue("income") }}>Income</button>
-                    <button className="bg-white border-none w-full py-4 font-bold" onClick={() => { setTabValue("expense") }}>Expense</button>
+                    <button className={`${tabValue == "all" ? "bg-green text-white rounded-md" : "bg-white"}  border-none w-full py-2 font-bold`} onClick={() => { setTabValue("all") }}>All</button>
+                    <button className={`${tabValue == "income" ? "bg-green text-white rounded-md" : "bg-white"}  border-none w-full py-2 font-bold`} onClick={() => { setTabValue("income") }}>Income</button>
+                    <button className={`${tabValue == "expense" ? "bg-green text-white rounded-md" : "bg-white"}  border-none w-full py-2 font-bold`} onClick={() => { setTabValue("expense") }}>Expense</button>
                 </div>
                 <div className={`${actvities.length == 0 && pageState == "idle" ? "hidden": "flex flex-col gap-2 py-2"}`}>
                     {tabValue == "all" && (actvities.map((activity, index) => {
