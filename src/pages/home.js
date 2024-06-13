@@ -146,7 +146,7 @@ export default function Home() {
                                     <div className="text-xs text-[#a3a3a3]">{moment(activity.createdAt).format("LLLL")}</div>
                                 </div>
                                 <div className={typeAndDate}>
-                                    <div className={`${activity.activityType == "income" ? "text-green" : "text-red"} w-fit rounded-lg px-2 text-[20px] font-bold`}>{activity.activityType == "income" ? "+" : "-"}{activity.amount.toLocaleString()}</div>
+                                    <div className={`${activity.activityType == "income" ? "text-green" : "text-red"} w-fit rounded-lg px-2 text-[20px] font-bold`}>{activity.activityType == "income" ? "+" : "-"}N{activity.amount.toLocaleString()}</div>
                                     <div onClick={() => { deleteRecord(activity.id) }}><MdDelete className="text-lg text-red" /></div>
                                 </div>
                             </div>
@@ -161,7 +161,7 @@ export default function Home() {
                                     <div className="text-xs text-[#a3a3a3]">{moment(activity.createdAt).format("LLLL")}</div>
                                 </div>
                                 <div className={typeAndDate}>
-                                    <div className={`${activity.activityType == "income" ? "text-green" : "text-red"} w-fit rounded-lg px-2 text-[20px] font-bold`}>{activity.activityType == "income" ? "+" : "-"}{activity.amount.toLocaleString()}</div>
+                                    <div className={`${activity.activityType == "income" ? "text-green" : "text-red"} w-fit rounded-lg px-2 text-[20px] font-bold`}>{activity.activityType == "income" ? "+" : "-"}N{activity.amount.toLocaleString()}</div>
                                     <div onClick={() => { deleteRecord(activity.id) }}><MdDelete className="text-lg text-red" /></div>
                                 </div>
                             </div>
@@ -176,7 +176,7 @@ export default function Home() {
                                     <div className="text-xs text-[#a3a3a3]">{moment(activity.createdAt).format("LLLL")}</div>
                                 </div>
                                 <div className={typeAndDate}>
-                                    <div className={`${activity.activityType == "income" ? "text-green" : "text-red"} w-fit rounded-lg px-2 text-[20px] font-bold`}>{activity.activityType == "income" ? "+" : "-"}{activity.amount.toLocaleString()}</div>
+                                    <div className={`${activity.activityType == "income" ? "text-green" : "text-red"} w-fit rounded-lg px-2 text-[20px] font-bold`}>{activity.activityType == "income" ? "+" : "-"}N{activity.amount.toLocaleString()}</div>
                                     <div onClick={() => { deleteRecord(activity.id) }}><MdDelete className="text-lg text-red" /></div>
                                 </div>
                             </div>
