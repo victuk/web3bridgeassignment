@@ -10,16 +10,8 @@ import {
   createBrowserRouter
 } from "react-router-dom";
 import Home from './pages/home';
-import About from './pages/about';
-import ContactUs from './pages/contactus';
-import Faqs from './pages/faqs';
-import PrivacyAndCookiesPolicy from './pages/privacyandcookiespolicy';
-import TermsOfUseAndContracting from './pages/termsofuseandcontracting';
-import StroesInACity from './pages/storesinacity';
 import 'alertifyjs/build/css/alertify.css';
 import "animate.css/animate.min.css";
-import JoinUsPage from './pages/joinuspage';
-import VerifyEmail from './pages/verifyEmail';
 
 const rootElement = document.getElementById('root');
 const root = ReactDOM.createRoot(rootElement!);
@@ -30,34 +22,6 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
-  },
-  {
-    path: "/about",
-    element: <About />,
-  },
-  {
-    path: "/verify-email/:tokenId",
-    element: <VerifyEmail />,
-  },
-  {
-    path: "/contact",
-    element: <ContactUs />,
-  },
-  {
-    path: "/faqs",
-    element: <Faqs />,
-  },
-  {
-    path: "/privacy-and-cookies-policy",
-    element: <PrivacyAndCookiesPolicy />,
-  },
-  {
-    path: "/terms-of-use-and-contracting",
-    element: <TermsOfUseAndContracting />
-  },
-  {
-    path: "/stores-in-a-city/:city",
-    element: <StroesInACity />
   }
 ]);
 

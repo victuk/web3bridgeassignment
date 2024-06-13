@@ -1,16 +1,3 @@
-import Footer from "../components/Footer";
-import GetTheApp from "../components/GetTheApp";
-import Header from "../components/Header";
-import HeroSection from "../components/HeroSection";
-import HowItWorks from "../components/HowItWorks";
-import ProductCategory from "../components/ProductCategory";
-import SelectYourCity from "../components/SelectYourCity";
-import HappyCustomers from "../components/HappyCustomers";
-import WhoCanUseTrovi from "../components/JoinTheWaitlist";
-import Layout from "../layouts/Layout";
-import JoinUs from "../components/Joinus";
-import SkipTheQueue from "../components/SkipTheQueue";
-import DiscoverPerfectPlan from "../components/DiscoverPerfectPlan";
 import { useEffect, useState } from "react";
 import moment from "moment";
 
@@ -72,21 +59,32 @@ export default function Home() {
 
     }, [actvities]);
 
+    // https://web3bridgechallenge.onrender.com
+
     const [formNaration, setFormNaration] = useState("");
     const [formType, setFormType] = useState("");
     const [formAmount, setFormAmount] = useState("");
+
+    const addExpense = () => {
+        setActivities(actvities.concat({
+            activity: formNaration,
+            activityType: formType,
+            amount: parseInt(formAmount),
+            createdAt: new Date()
+        }))
+    }
 
     return (
         <div className="bg-grey flex flex-col gap-2 h-screen mx-auto w-full xl:w-[600px] p-4">
 
             <div className="flex gap-2">
-                <input />
-                <input onChange={(e) => {setFormAmount()}} />
-                <select>
+                <input onChange={(e) => {setFormNaration(e.target.value)}} />
+                <input onChange={(e) => {setFormAmount(e.target.value)}} />
+                <select onChange={(e) => {setFormType(e.target.value)}}>
                     <option value="income">Income</option>
                     <option value="expense">Expense</option>
                 </select>
-                <button>Add</button>
+                <button onClick={addExpense}>Add</button>
             </div>
 
             <div className="flex gap-2">
