@@ -33,7 +33,18 @@ export default function Home() {
 
     const listDesign = "flex justify-between items-center bg-white p-2";
 
-    const typeAndDate = "flex flex-col"
+    const typeAndDate = "flex flex-col";
+
+    useEffect(() => {
+        const expenseTrackerList = localStorage.getItem("expensetracker");
+
+        if(!expenseTrackerList) {
+            setActivities([]);
+        } else {
+            setActivities(JSON.parse(expenseTrackerList));
+        }
+
+    }, []);
 
 
     useEffect(() => {
@@ -56,6 +67,7 @@ export default function Home() {
         setRemainingCash(remainingCashCalculated);
         setpageState("idle");
 
+        localStorage.setItem("expensetracker", JSON.stringify(actvities));
 
     }, [actvities]);
 
@@ -66,6 +78,12 @@ export default function Home() {
     const [formAmount, setFormAmount] = useState("");
 
     const addExpense = () => {
+
+        if(!formNaration || !formType || !formAmount) {
+            alert("Kindly fill the form completely...");
+            return;
+        }
+
         setActivities(actvities.concat({
             activity: formNaration,
             activityType: formType,
@@ -77,14 +95,15 @@ export default function Home() {
     return (
         <div className="bg-grey flex flex-col gap-2 h-screen mx-auto w-full xl:w-[600px] p-4">
 
-            <div className="flex gap-2">
-                <input onChange={(e) => {setFormNaration(e.target.value)}} />
-                <input onChange={(e) => {setFormAmount(e.target.value)}} />
-                <select onChange={(e) => {setFormType(e.target.value)}}>
+            <div className="flex gap-2 w-full flex-col pb-8">
+                <input className="rounded-md py-2" onChange={(e) => {setFormNaration(e.target.value)}} placeholder="Enter Naration" />
+                <input className="rounded-md py-2" onChange={(e) => {setFormAmount(e.target.value)}} placeholder="Enter Amount" />
+                <select className="rounded-md py-2" onChange={(e) => {setFormType(e.target.value)}}>
+                    <option value="">Select Naration Type</option>
                     <option value="income">Income</option>
                     <option value="expense">Expense</option>
                 </select>
-                <button onClick={addExpense}>Add</button>
+                <button className="bg-green text-white py-2 font-bold border-none rounded-md" onClick={addExpense}>Add</button>
             </div>
 
             <div className="flex gap-2">
