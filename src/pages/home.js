@@ -1,29 +1,12 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
+import { MdDelete } from "react-icons/md";
+import {v4} from "uuid";
 
 
 export default function Home() {
 
-    const [actvities, setActivities] = useState([
-        {
-            activity: "Receive Salary",
-            activityType: "income",
-            amount: 200000,
-            createdAt: new Date()
-        },
-        {
-            activity: "Side hustle",
-            activityType: "income",
-            amount: 30000,
-            createdAt: new Date()
-        },
-        {
-            activity: "Suya",
-            activityType: "expense",
-            amount: 5000,
-            createdAt: new Date()
-        }
-    ]);
+    const [actvities, setActivities] = useState(localStorage.getItem("expensetracker") ? JSON.parse(localStorage.getItem("expensetracker")) : []);
 
     const [remainingCash, setRemainingCash] = useState(0);
     const [totalIncome, setTotalIncome] = useState(0);
@@ -33,18 +16,18 @@ export default function Home() {
 
     const listDesign = "flex justify-between items-center bg-white p-2";
 
-    const typeAndDate = "flex flex-col";
+    const typeAndDate = "flex items-center gap-4";
 
-    useEffect(() => {
-        const expenseTrackerList = localStorage.getItem("expensetracker");
+    // useEffect(() => {
+    //     const expenseTrackerList = localStorage.getItem("expensetracker");
 
-        if(!expenseTrackerList) {
-            setActivities([]);
-        } else {
-            setActivities(JSON.parse(expenseTrackerList));
-        }
+    //     if(!expenseTrackerList) {
+    //         setActivities([]);
+    //     } else {
+    //         setActivities(JSON.parse(expenseTrackerList));
+    //     }
 
-    }, []);
+    // }, []);
 
 
     useEffect(() => {
@@ -85,20 +68,32 @@ export default function Home() {
         }
 
         setActivities(actvities.concat({
+            id: v4(),
             activity: formNaration,
             activityType: formType,
             amount: parseInt(formAmount),
             createdAt: new Date()
-        }))
+        }));
+
+        setFormNaration("");
+        setFormAmount("");
+        setFormType("");
+
+    }
+
+    const deleteRecord = (id) => {
+        const updatedActivity = actvities.filter(activity => activity.id !== id);
+        setActivities(updatedActivity);
+        localStorage.setItem("expensetracker", JSON.stringify(updatedActivity));
     }
 
     return (
         <div className="bg-grey flex flex-col gap-2 h-screen mx-auto w-full xl:w-[600px] p-4">
 
             <div className="flex gap-2 w-full flex-col pb-8">
-                <input className="rounded-md py-2" onChange={(e) => {setFormNaration(e.target.value)}} placeholder="Enter Naration" />
-                <input className="rounded-md py-2" onChange={(e) => {setFormAmount(e.target.value)}} placeholder="Enter Amount" />
-                <select className="rounded-md py-2" onChange={(e) => {setFormType(e.target.value)}}>
+                <input className="rounded-md py-2" type="text" value={formNaration} onChange={(e) => {setFormNaration(e.target.value)}} placeholder="Enter Naration" />
+                <input className="rounded-md py-2" type="number" value={formAmount} onChange={(e) => {setFormAmount(e.target.value)}} placeholder="Enter Amount" />
+                <select className="rounded-md py-2" value={formType} onChange={(e) => {setFormType(e.target.value)}}>
                     <option value="">Select Naration Type</option>
                     <option value="income">Income</option>
                     <option value="expense">Expense</option>
@@ -137,7 +132,7 @@ export default function Home() {
                                 </div>
                                 <div className={typeAndDate}>
                                     <div className={`${activity.activityType == "income" ? "text-green" : "text-red"} w-fit rounded-lg px-2 text-[25px] font-bold`}>{activity.activityType == "income" ? "+" : "-"}{activity.amount.toLocaleString()}</div>
-                                    
+                                    <div onClick={() => {deleteRecord(activity.id)}}><MdDelete className="text-lg text-red" /></div>
                                 </div>
                             </div>
                         );
@@ -152,7 +147,7 @@ export default function Home() {
                                 </div>
                                 <div className={typeAndDate}>
                                     <div className={`${activity.activityType == "income" ? "text-green" : "text-red"} w-fit rounded-lg px-2 text-[25px] font-bold`}>{activity.activityType == "income" ? "+" : "-"}{activity.amount.toLocaleString()}</div>
-                                    
+                                    <div onClick={() => {deleteRecord(activity.id)}}><MdDelete className="text-lg text-red" /></div>
                                 </div>
                             </div>
                         );
@@ -167,12 +162,14 @@ export default function Home() {
                                 </div>
                                 <div className={typeAndDate}>
                                     <div className={`${activity.activityType == "income" ? "text-green" : "text-red"} w-fit rounded-lg px-2 text-[25px] font-bold`}>{activity.activityType == "income" ? "+" : "-"}{activity.amount.toLocaleString()}</div>
-                                    
+                                    <div onClick={() => {deleteRecord(activity.id)}}><MdDelete className="text-lg text-red" /></div>
                                 </div>
                             </div>
                         );
                     }))}
-
+                </div>
+                <div className={`${actvities.length == 0 && pageState == "idle" ? "block text-center py-4": "hidden"}`}>
+                    No record
                 </div>
             </div>
         </div>
